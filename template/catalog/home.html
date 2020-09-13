@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% extends "base.html" %}7
+{% block body_block %}
+  {% load static %}
+  <div class = "row text-center">
+    {% if books %}
+      {% for book in books %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card text-center" style="width: 20rem;">
+            <img class="card-img-top" src="{{book.image.url}}" alt="{{book.title}}" height="400">
+            <div class="card-body">
+              <h4 class="card-title">{{book.title}}</h4>
+              <p class="card-title">Tác giả: {{book.author.name}}.<br> Quốc gia: {{book.author.country}}</p>
+              <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#a{{book.id}}" aria-expanded="false" aria-controls="a{{book.id}}">Mô tả</button>
+              </p>
+              <div class="collapse" id="a{{book.id}}">
+                <div class="card card-body">{{book.summary}}</div>
+              </div>
+              <div>
+                <a href="{% url 'catalog:bookdetail' book.id%}">Chi tiết</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endblock %}

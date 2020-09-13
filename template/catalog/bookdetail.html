@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block body_block %}
+    {% load static %}
+    <div class = "row text-center">
+        {% if book %}
+          {% for b in books_instance %}
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card text-center" style="width: 20rem;">
+                <img class="card-img-top" src="{{book.image.url}}" alt="{{book.title}}" height="400">
+                <div class="card-body">
+                  <h4 class="card-title">{{b.id}}-{{book.title}}</h4>
+                  <p class="card-text">Nhà xuất bản: {{b.imprint}}</p>
+                  <p class="card-text">Trạng thái: {{b.get_status_display}}</p>
+                  {% if b.status == 'o' or b.status == 'm' %}
+                    <p class="card-text">Ngày trả: {{b.due_back}}</p>
+                  {% else %}
+                  <div>
+                    <div class = "card-footer"></div>
+                      <form action = "{% url 'cart:cart_add' b.id %}" method = "POST">
+                        {{cart_form}} Tuần
+                        {% csrf_token %}
+                        <div><input type="submit" value="Mượn" class = "btn btn-primary"></div>
+                      </form>  
+                    </div>
+                </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+{% endblock %}

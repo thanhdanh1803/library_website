@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block body_block %}
+    {% load static %}
+    <div class="container"></div>
+    <h1>Thông tin giỏ hàng</h1>
+    <table class="table">
+        <thead class="danger">
+            <th>Tên Sách</th>
+            <th>Mã sách</th>
+            <th>Ngày mượn</th>
+            <th>Số tuần mượn</th>
+            <th>Xóa</th>
+        </thead>
+        <tbody>
+            {% for item in cart %}
+                <tr class="success">
+                    <td>  
+                        <a href="{% url 'catalog:bookdetail' item.book_instance.book.id%}"><img src={{item.book_instance.book.image.url}} width="200" height="200"></a>
+                    </td>
+                    <td>{{item.book_instance}}</td>
+                    <td>{{item.start_day}}</td>
+                    <td>
+                        <form action = "{% url 'cart:cart_add' item.book_instance.pk%}" method = "POST">
+                            {{item.update_quantity_form.duration}}
+                            {{item.update_quantity_form.update}}
+                            <input type ="submit" value = "Cập nhật"/>
+                            {% csrf_token %}
+                        </form>
+                    </td>
+                    <td><a href="{% url 'cart:cart_remove' item.book_instance.pk %}">Xóa</a></td> 
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
