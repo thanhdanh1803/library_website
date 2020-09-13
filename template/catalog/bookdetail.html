@@ -2,6 +2,10 @@
 {% extends "base.html" %}
 {% block body_block %}
     {% load static %}
+    {% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
+    {% bootstrap_css %}         {# Embed Bootstrap CSS #}
+    {% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+    {{ cart_form.media }}            {# Adds date-picker required JS and CSS #}
     <div class = "row text-center">
         {% if book %}
           {% for b in books_instance %}
@@ -18,7 +22,7 @@
                   <div>
                     <div class = "card-footer"></div>
                       <form action = "{% url 'cart:cart_add' b.id %}" method = "POST">
-                        {{cart_form}} Tuần
+                        {% bootstrap_form cart_form %}
                         {% csrf_token %}
                         <div><input type="submit" value="Mượn" class = "btn btn-primary"></div>
                       </form>  

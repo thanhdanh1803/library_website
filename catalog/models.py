@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Genre(models.Model):
@@ -50,7 +51,7 @@ class BookInstance(models.Model):
         ('r', 'Chưa có'),
     )
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text= 'Book availability')
-
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     class Meta:
         ordering = ['due_back']
 

@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap4',
     'catalog',
     'cart',
     'registration',
+    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 CART_SESSION_ID = 'cart'
 ROOT_URLCONF = 'library_website.urls'
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'template')

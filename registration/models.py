@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from catalog.models import BookInstance
 # Create your models here.
 class UserProfileInfo(models.Model):
     #create relationship from this class to User

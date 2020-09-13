@@ -3,6 +3,7 @@ from registration.models import UserProfileInfo
 from registration.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+
 # Create your views here.
 def register(request):
     registered = False
@@ -35,6 +36,8 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
+                request.session['username'] = username
+                request.session['password'] = password
                 result = 'Chào bạn ' + username
                 return render(request, 'catalog/home.html', {'result': result})
         else:
@@ -46,5 +49,7 @@ def user_login(request):
 @login_required
 def user_logout(request):
     logout(request)
+    request.session['username'] = ''
+    request.session['password'] = ''
     result = "Bạn đã đăng xuất. Vui lòng chọn 'Đăng nhập'"
     return render(request, "catalog/home.html", {"result":result})
