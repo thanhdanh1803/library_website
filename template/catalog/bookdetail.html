@@ -18,16 +18,16 @@
                   <p class="card-text">Trạng thái: {{b.get_status_display}}</p>
                   {% if b.status == 'o' or b.status == 'm' %}
                     <p class="card-text">Ngày trả: {{b.due_back}}</p>
-                  {% else %}
-                  <div>
-                    <div class = "card-footer"></div>
-                      <form action = "{% url 'cart:cart_add' b.id %}" method = "POST">
-                        {% bootstrap_form cart_form %}
-                        {% csrf_token %}
-                        <div><input type="submit" value="Mượn" class = "btn btn-primary"></div>
-                      </form>  
+                  {% elif b.status == 'a' %}
+                    <div>
+                      <div class = "card-footer"></div>
+                        <form action = "{% url 'cart:cart_add' b.id %}" method = "POST">
+                          {% bootstrap_form cart_form %}
+                          {% csrf_token %}
+                          <div><input type="submit" value="Mượn" class = "btn btn-primary"></div>
+                        </form>  
+                      </div>
                     </div>
-                </div>
                   {% endif %}
                 </div>
               </div>
